@@ -75,6 +75,10 @@ lifeBarSupport2 = pygame.transform.flip(lifeBarSupport1, True, False) # idem
 
 scoreSupport = pygame.transform.scale(tileset.subsurface(0, 80, 32, 16), (128, 64))
 
+#LifeBonus
+
+lifeBonus = pygame.transform.scale(tileset.subsurface(32, 0, 8, 8), scale)
+
 #SOUNDS
 
 pygame.mixer.init() # initialisation du module mixer permettant le chargement de sons

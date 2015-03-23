@@ -8,7 +8,7 @@ from graphics import *
 
 class Player(pygame.sprite.Sprite): #Classe joueur
 
-	def __init__(self, x, y, isRight, lifes, up, left, right, gun, imgR, imgL, imgFR, imgFL, jump, fire):
+	def __init__(self, x, y, isRight, up, left, right, gun, imgR, imgL, imgFR, imgFL, jump, fire):
 		super(Player, self).__init__()
 
 		#PARAMETRES
@@ -25,7 +25,6 @@ class Player(pygame.sprite.Sprite): #Classe joueur
 		self.xspeed, self.yspeed = 0, 0
 		self.speed = 5
 		self.score = 0
-		self.lifes = lifes
 		self.life = 100
 		self.lifeBar = pygame.Surface((self.life * 2 + 1, 12))
 		self.lifeBar.fill((10, 250, 10))
@@ -93,15 +92,19 @@ class Player(pygame.sprite.Sprite): #Classe joueur
 	def addScore(self, number):
 		self.score += number
 
+	def addLife(self, life):
+		self.life += life
+		if self.life > 100:
+			self.life = 100
+
 	def hit(self, damage): # méthode pour prendre des dégâts
 		self.life -= damage
 
 	def die(self): # méthode de réaparition
 		self.life = 100
-		self.lifes -= 1
 		self.enemy.addScore(1)
+		self.enemy.addLife(25)
 		self.rect.x, self.rect.y = self.spawnX, self.spawnY
-		print("Score : ", self.score)
 
 class Block(pygame.sprite.Sprite): # classe bloc
 
@@ -189,3 +192,33 @@ class Bullet(pygame.sprite.Sprite): #classe balle
 	def destroy(self): #méthode détruisant l'objet et en le supprimmant de la liste
 		Bullet.bullets.remove(self)
 		del self
+
+class Item(pygame.sprite.Sprite):
+	itemList = pygame.sprite.Group()
+	
+	def __init__(self, x, y, img):
+		super(Item, self).__init__()
+		self.image = img
+		self.rect = self.image.get_rect()
+		self.rect.x, self.rect.y = x, y
+		Item.itemList.add(self)
+
+	def destroy(self):
+		Item.itemList.remove(self)
+		del self
+
+class LifeBonus(Item):
+	
+	def __init__(self, x, y, img, life):
+		super(LifeBonus, self).__init__(x, y, img)
+		self.life = life
+	
+	def setLife(self, player):
+		player.addLife(self.life)
+
+
+class ItemSpawner(Block):
+	
+	def __init__(x, y, img):
+		super(ItemSpawner, self).__init__(x, y, img)
+		

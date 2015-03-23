@@ -6,6 +6,7 @@ from process import *
 
 pygame.init()
 
+
 #Création / définition de l'écran
 
 screen = pygame.display.set_mode(size, RESIZABLE)
@@ -16,8 +17,8 @@ clock = pygame.time.Clock() # création d'un objet horloge permmettant notemment
 
 #Création d'objet : joueur1, joueur2
 
-player1 = Player(160, 128, True, 5, pygame.K_w, pygame.K_a, pygame.K_d, pygame.K_f, player1, player1left, player1fire, player1fireleft, jump, fire)
-player2 = Player(width - 192, 128, 5, False, pygame.K_UP, pygame.K_LEFT, pygame.K_RIGHT, pygame.K_KP0, player2, player2left, player2fire, player2fireleft, jump, fire)
+player1 = Player(160, 128, True, pygame.K_w, pygame.K_a, pygame.K_d, pygame.K_f, player1, player1left, player1fire, player1fireleft, jump, fire)
+player2 = Player(width - 192, 128, False, pygame.K_UP, pygame.K_LEFT, pygame.K_RIGHT, pygame.K_KP0, player2, player2left, player2fire, player2fireleft, jump, fire)
 
 player1.setEnemy(player2)
 player2.setEnemy(player1)
@@ -34,6 +35,10 @@ list2 = [player2]
 #On appelle la fonction de la map qui va générer le terrain
 
 levl1.generate()
+
+#Test item
+
+lifeBonus = LifeBonus(624, 320, lifeBonus, 50)
 
 #Boucle infinie
 
@@ -65,6 +70,8 @@ while True:
 	levl1.blockList.draw(screen) # Affichage de tous les blocs du niveau
 
 	Bullet.bullets.draw(screen) # affichage de toutes les balles tirées
+	
+	Item.itemList.draw(screen)
 
 	player1.drawLifeBar(screen, 0, 0, 19, 4, lifeBarSupport1)
 	player2.drawLifeBar(screen, width - 256, 0, width - player2.life * 2 - 20, 4, lifeBarSupport2)
@@ -76,3 +83,4 @@ while True:
 	clock.tick(ups) # régule les tours de boucles à 60 tours/S
 
 	pygame.display.update() #raffrachissment de l'écran
+
