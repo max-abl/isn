@@ -1,58 +1,78 @@
-# -*- coding: utf-8 -*- 
 import pygame, sys
 from pygame.locals import *
 from graphics import *
 from classes import *
+from process import *
 
 pygame.init()
 
-#gère les collisions entre balle et mur
+#Création / définition de l'écran
 
-def collision():
-	for b in Bullet.bullets:
-		if pygame.sprite.spritecollide(b, levl1.blockList, False): #si collision : destruction de l'objet balle
-			b.destroy()
+screen = pygame.display.set_mode(size, RESIZABLE)
+pygame.display.set_icon(icon)
+pygame.display.set_caption("Projet ISN")
 
-screen = pygame.display.set_mode(size, RESIZABLE ) # création d'un écran avec plusieurs paramètres
-pygame.display.set_icon(icon) # mise en place de l'icon
-pygame.display.set_caption("Projet ISN") # mise en place du titre
+clock = pygame.time.Clock() # création d'un objet horloge permmettant notemment de réguler le nombre de tours/s de la boucle
 
-clock = pygame.time.Clock() # création d'une horloge qui régulera les tours de boucles
+#Création d'objet : joueur1, joueur2
 
-player = Player(width/2, height/2, True, player1, jump, fire) #création objet player
-levl1 = Map(lvl1) # création objet map
+player1 = Player(160, 128, True, 5, pygame.K_w, pygame.K_a, pygame.K_d, pygame.K_f, player1, player1left, player1fire, player1fireleft, jump, fire)
+player2 = Player(width - 192, 128, 5, False, pygame.K_UP, pygame.K_LEFT, pygame.K_RIGHT, pygame.K_KP0, player2, player2left, player2fire, player2fireleft, jump, fire)
 
-levl1.generate() # génération de la map par la fonction generate()
+player1.setEnemy(player2)
+player2.setEnemy(player1)
 
-while True: #boucle infinie
+#Création d'un objet map
 
-	#EVENT
+levl1 = Map(lvl1)
 
-	for event in pygame.event.get():
-		if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event == K_ESCAPE:
-			pygame.quit()
-			sys.exit()
+#Création de liste pour chaque joueur qui va être utilisée pour la détéction de collision balles/joueur
 
-	#MOVE
+list1 = [player1] 
+list2 = [player2]
 
+#On appelle la fonction de la map qui va générer le terrain
+
+levl1.generate()
+
+#Boucle infinie
+
+while True:
+
+	title = "Projet ISN. fps : " + str(clock.get_fps())
+
+	pygame.display.set_caption(title)
+
+	#PROCESS (test de processus ex évènements)
+
+	process(player1, player2)
+
+	#LOGIC 
+
+	collision(list1, list2, levl1) #appel de la fonction collision
+
+	player1.update(levl1.blockList) # appel de la fonction update de la classe player
+	player2.update(levl1.blockList) #Idem
 	Bullet.move()
-
-	#LOGIC
-
-	player.update(levl1.blockList, event)
-	collision()
-
-	event = None
 
 	#DRAW
 
-	screen.blit(fond, (0, 0))
-	screen.blit(player.image, (player.rect.x, player.rect.y))
-	levl1.blockList.draw(screen)
-	Bullet.bullets.draw(screen)
-	screen.blit(lifeBarSupport1, (0, 0))
-	screen.blit(player.drawLifeBar(), (19, 4))
+	screen.blit(fond, (0, 0)) # Affichage du fond
 
-	clock.tick(ups)
+	screen.blit(player1.image, (player1.rect.x, player1.rect.y)) # Affichage du joueur
+	screen.blit(player2.image, (player2.rect.x, player2.rect.y)) # Idem
 
-	pygame.display.update()
+	levl1.blockList.draw(screen) # Affichage de tous les blocs du niveau
+
+	Bullet.bullets.draw(screen) # affichage de toutes les balles tirées
+
+	player1.drawLifeBar(screen, 0, 0, 19, 4, lifeBarSupport1)
+	player2.drawLifeBar(screen, width - 256, 0, width - player2.life * 2 - 20, 4, lifeBarSupport2)
+
+	screen.blit(scoreSupport, (width/2 - 64, 0))
+	player1.drawScore(screen, width/2 - 48, 16)
+	player2.drawScore(screen, width/2 + 16, 16)
+
+	clock.tick(ups) # régule les tours de boucles à 60 tours/S
+
+	pygame.display.update() #raffrachissment de l'écran
