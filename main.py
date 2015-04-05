@@ -3,6 +3,7 @@ from pygame.locals import *
 from graphics import *
 from classes import *
 from process import *
+from random import randint
 
 pygame.init()
 
@@ -36,11 +37,9 @@ list2 = [player2]
 
 levl1.generate()
 
-#Test item
-
-lifeBonus = LifeBonus(624, 320, lifeBonus, 50)
-
 #Boucle infinie
+
+spawner = ItemSpawner(20)
 
 while True:
 
@@ -52,9 +51,13 @@ while True:
 
 	process(player1, player2)
 
-	#LOGIC 
+	#LOGIC
 
 	collision(list1, list2, levl1) #appel de la fonction collision
+	
+
+	spawner.update(secTime)
+	
 
 	player1.update(levl1.blockList) # appel de la fonction update de la classe player
 	player2.update(levl1.blockList) #Idem
@@ -79,6 +82,21 @@ while True:
 	screen.blit(scoreSupport, (width/2 - 64, 0))
 	player1.drawScore(screen, width/2 - 48, 16)
 	player2.drawScore(screen, width/2 + 16, 16)
+
+	#SPAWN ALEATOIRES
+
+
+	# LE TEMPS ! (c'est de l'argent)
+
+	if looptime < 60:
+		looptime += 1
+
+	else:
+		looptime = 1
+		secTime += 1
+		print(secTime)
+		if secTime >= 60:
+			secTime = 0
 
 	clock.tick(ups) # régule les tours de boucles à 60 tours/S
 

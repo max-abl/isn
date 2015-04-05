@@ -1,5 +1,6 @@
 import pygame, sys
 from pygame.locals import *
+from random import randint
 
 # constantes
 
@@ -78,8 +79,12 @@ scoreSupport = pygame.transform.scale(tileset.subsurface(0, 80, 32, 16), (128, 6
 #LifeBonus
 
 lifeBonus = pygame.transform.scale(tileset.subsurface(32, 0, 8, 8), scale)
+area = ((624, 320), (624, 96), (624, 480), (624, 608))
 
 #SOUNDS
+
+looptime = 0
+secTime = 0
 
 pygame.mixer.init() # initialisation du module mixer permettant le chargement de sons
 

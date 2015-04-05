@@ -1,9 +1,8 @@
-import pygame
+import pygame 
 from pygame.locals import *
 from classes import *
 from graphics import *
 from random import randint
-
 
 def process(player, player2): # fonction gérant les évènements de touche
 	for event in pygame.event.get():
@@ -104,4 +103,3 @@ def collision(player1, player2, levl): # fonction gérant les collisions entre b
 		elif pygame.sprite.spritecollide(item, player2, False):
 			item.setLife(player2[0])
 			item.destroy()
-			

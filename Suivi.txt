@@ -1,8 +1,6 @@
-
-
 A faire :
 
-- Ajout d'objets bonus
+
 - Menu
 - Changement de taille de l'écran dans le menu
 - Choix de map ( si possible )
@@ -27,6 +25,7 @@ FAIT :
 EN COURS :
 
 - Tout le coté graphique ( fait mais à améliorer plus tard si possible )
+- Ajout d'objets bonus( Vie deja fait, autre a rajouter)
 
 A LIRE :
 
