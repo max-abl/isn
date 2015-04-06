@@ -1,6 +1,6 @@
-import pygame, random
+import pygame, random, graphics
 from pygame.locals import *
-from graphics import *
+
 
 
 #self.image = pygame.Surface((width, height))
@@ -8,7 +8,7 @@ from graphics import *
 
 class Player(pygame.sprite.Sprite): #Classe joueur
 
-	def __init__(self, x, y, isRight, lifes, up, left, right, gun, imgR, imgL, imgFR, imgFL, jump, fire):
+	def __init__(self, x, y, isRight, up, left, right, gun, imgR, imgL, imgFR, imgFL, jump, fire):
 		super(Player, self).__init__()
 
 		#PARAMETRES
@@ -24,7 +24,7 @@ class Player(pygame.sprite.Sprite): #Classe joueur
 		self.spawnX, self.spawnY = x, y
 		self.xspeed, self.yspeed = 0, 0
 		self.speed = 5
-		self.lifes = lifes
+		self.score = 0
 		self.life = 100
 		self.lifeBar = pygame.Surface((self.life * 2 + 1, 12))
 		self.lifeBar.fill((10, 250, 10))
@@ -35,8 +35,12 @@ class Player(pygame.sprite.Sprite): #Classe joueur
 		self.left = left
 		self.right = right
 		self.gun = gun
+		self.enemy = 0
 
 	#METHODES
+
+	def setEnemy(self, enemy):
+		self.enemy = enemy
 
 	def update(self, collidable = pygame.sprite.Group()): #méthode gérant les collisions et la gravité
 
@@ -79,16 +83,27 @@ class Player(pygame.sprite.Sprite): #Classe joueur
 		else:
 			self.lifeBar = pygame.Surface((self.life * 2 + 1, 12)) # sinon on crée un rectangle dont la longeur varie en fonction de la vie
 		self.lifeBar.fill((10, 250, 10))
-		#return self.lifeBar
 		screen.blit(lifeBarSupport, (x, y))
 		screen.blit(self.lifeBar, (xx, yy))
+
+	def drawScore(self, screen, x, y):
+		screen.blit(graphics.score[self.score], (x, y))
+
+	def addScore(self, number):
+		self.score += number
+
+	def addLife(self, life):
+		self.life += life
+		if self.life > 100:
+			self.life = 100
 
 	def hit(self, damage): # méthode pour prendre des dégâts
 		self.life -= damage
 
 	def die(self): # méthode de réaparition
 		self.life = 100
-		self.lifes -= 1
+		self.enemy.addScore(1)
+		self.enemy.addLife(25)
 		self.rect.x, self.rect.y = self.spawnX, self.spawnY
 
 class Block(pygame.sprite.Sprite): # classe bloc
@@ -124,7 +139,7 @@ class Map(object): #classe map
 				for car in lines:
 					if car != '\n': # on ignore les retours à la ligne
 						if car == "#": # si on trouve le caractère "#" On crée un objet bloc que l'on ajoute à une liste
-							block = Block(x, y, block1)
+							block = Block(x, y, graphics.block1)
 							self.blockList.add(block)
 						#elif car == "1": # si on trouve le caractère "#" On crée un objet bloc que l'on ajoute à une liste
 						#	block = Block(x, y, block1)
@@ -177,3 +192,46 @@ class Bullet(pygame.sprite.Sprite): #classe balle
 	def destroy(self): #méthode détruisant l'objet et en le supprimmant de la liste
 		Bullet.bullets.remove(self)
 		del self
+
+class Item(pygame.sprite.Sprite):
+	itemList = pygame.sprite.Group()
+	
+	def __init__(self, x, y, img):
+		super(Item, self).__init__()
+		self.image = img
+		self.rect = self.image.get_rect()
+		self.rect.x, self.rect.y = x, y
+		Item.itemList.add(self)
+
+	def destroy(self):
+		Item.itemList.remove(self)
+		ItemSpawner.available = True
+		del self
+
+class LifeBonus(Item):
+	
+	def __init__(self, x, y, img, life):
+		super(LifeBonus, self).__init__(x, y, img)
+		self.life = life
+	
+	def setLife(self, player):
+		player.addLife(self.life)
+
+
+class ItemSpawner(object):
+	available = True
+	
+	def __init__(self, time):
+		super(ItemSpawner, self).__init__()
+
+		self.time = time
+
+	def update(self, gameTime):
+		if gameTime % self.time == 0 and self.available == True:
+			self.spawnItem(1)
+			ItemSpawner.available = False
+
+	def spawnItem(self, typ):
+		rdm = random.randint(0, 3)
+		lifeBonus = LifeBonus(graphics.area[rdm][0], graphics.area[rdm][1], graphics.lifeBonus, 50)
+		

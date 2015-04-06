@@ -96,3 +96,12 @@ def collision(player1, player2, levl): # fonction gérant les collisions entre b
 		elif pygame.sprite.spritecollide(b, player2, False):
 			b.destroy()
 			player2[0].hit(randint(5, 10))
+	
+	for item in Item.itemList:
+		if pygame.sprite.spritecollide(item, player1, False):
+			item.setLife(player1[0])
+			item.destroy()
+		elif pygame.sprite.spritecollide(item, player2, False):
+			item.setLife(player2[0])
+			item.destroy()
+			

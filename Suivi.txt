@@ -2,11 +2,9 @@
 
 A faire :
 
-- Ajout d'objets bonus
 - Menu
 - Changement de taille de l'écran dans le menu
 - Choix de map ( si possible )
-- Système de point, Ajouter le timer et les rounds
 
 - Mode Multi ( si possible )
 
@@ -21,6 +19,9 @@ FAIT :
 - Resolution 1280x720
 - Perte de vie
 - Systeme de réaparition
+- sons
+- Affichage de score
+- ajout de bonus
 
 
 

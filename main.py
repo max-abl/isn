@@ -3,8 +3,10 @@ from pygame.locals import *
 from graphics import *
 from classes import *
 from process import *
+from random import randint
 
 pygame.init()
+
 
 #Création / définition de l'écran
 
@@ -16,8 +18,15 @@ clock = pygame.time.Clock() # création d'un objet horloge permmettant notemment
 
 #Création d'objet : joueur1, joueur2
 
-player1 = Player(160, 128, True, 5, pygame.K_w, pygame.K_a, pygame.K_d, pygame.K_f, player1, player1left, player1fire, player1fireleft, jump, fire)
-player2 = Player(width - 192, 128, 5, False, pygame.K_UP, pygame.K_LEFT, pygame.K_RIGHT, pygame.K_KP0, player2, player2left, player2fire, player2fireleft, jump, fire)
+player1 = Player(160, 128, True, pygame.K_w, pygame.K_a, pygame.K_d, pygame.K_f, player1, player1left, player1fire, player1fireleft, jump, fire)
+player2 = Player(width - 192, 128, False, pygame.K_UP, pygame.K_LEFT, pygame.K_RIGHT, pygame.K_KP0, player2, player2left, player2fire, player2fireleft, jump, fire)
+
+player1.setEnemy(player2)
+player2.setEnemy(player1)
+
+#
+
+spawner = ItemSpawner(10)
 
 #Création d'un objet map
 
@@ -25,7 +34,7 @@ levl1 = Map(lvl1)
 
 #Création de liste pour chaque joueur qui va être utilisée pour la détéction de collision balles/joueur
 
-list1 = [player1]
+list1 = [player1] 
 list2 = [player2]
 
 #On appelle la fonction de la map qui va générer le terrain
@@ -51,6 +60,7 @@ while True:
 	player1.update(levl1.blockList) # appel de la fonction update de la classe player
 	player2.update(levl1.blockList) #Idem
 	Bullet.move()
+	spawner.update(secTime)
 
 	#DRAW
 
@@ -62,15 +72,27 @@ while True:
 	levl1.blockList.draw(screen) # Affichage de tous les blocs du niveau
 
 	Bullet.bullets.draw(screen) # affichage de toutes les balles tirées
-
-	#screen.blit(lifeBarSupport1, (0, 0)) # affichage du décors de la barre de vie
-	#screen.blit(player1.drawLifeBar(), (19, 4)) # affichage de la barre de vie
-	#screen.blit(lifeBarSupport2, (width - 256, 0)) # idem
-	#screen.blit(player2.drawLifeBar(), (width - player2.life * 2 - 20, 4)) #idem
+	
+	Item.itemList.draw(screen)
 
 	player1.drawLifeBar(screen, 0, 0, 19, 4, lifeBarSupport1)
 	player2.drawLifeBar(screen, width - 256, 0, width - player2.life * 2 - 20, 4, lifeBarSupport2)
 
+	screen.blit(scoreSupport, (width/2 - 64, 0))
+	player1.drawScore(screen, width/2 - 48, 16)
+	player2.drawScore(screen, width/2 + 16, 16)
+
+	#LE RESTE
+
+	if loopTime < 59:
+		loopTime += 1
+	else:
+		loopTime = 0
+		secTime += 1
+		if secTime >= 60:
+			secTime = 0
+
 	clock.tick(ups) # régule les tours de boucles à 60 tours/S
 
 	pygame.display.update() #raffrachissment de l'écran
+

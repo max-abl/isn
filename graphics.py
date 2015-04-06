@@ -7,10 +7,22 @@ size = width, height = 1280, 720
 scale = (32, 32)
 ups = 60
 
+#time
+
+loopTime = 0
+secTime = 0
+
 icon = pygame.image.load("res/img/icon.png") # chargement de l'icone de la fenêtre
 fond = pygame.transform.scale(pygame.image.load("res/img/fond.png"), size) # idem pour le fond
 tileset = pygame.image.load("res/img/tileset.png") # idem pour l'image générale contenant toutes les textures
 
+score = []
+area = (
+	(624, 320),
+	(624, 96),
+	(624, 480),
+	(624, 608)
+	)
 #Levels
 
 lvl1 = "res/levels/lvl1.txt" # idem pour le fichier .txt représentant le niveau
@@ -46,6 +58,18 @@ block1 = pygame.transform.scale(tileset.subsurface(8, 0, 8, 8), scale)  # idem
 #block8 = pygame.transform.scale(tileset.subsurface(72, 16, 8, 8), scale)
 #block9 = pygame.transform.scale(tileset.subsurface(80, 16, 8, 8), scale)
 
+#number
+
+score.append(pygame.transform.scale(tileset.subsurface(120, 0, 8, 8), scale))
+score.append(pygame.transform.scale(tileset.subsurface(120, 8, 8, 8), scale))
+score.append(pygame.transform.scale(tileset.subsurface(120, 16, 8, 8), scale))
+score.append(pygame.transform.scale(tileset.subsurface(120, 24, 8, 8), scale))
+score.append(pygame.transform.scale(tileset.subsurface(120, 32, 8, 8), scale))
+score.append(pygame.transform.scale(tileset.subsurface(120, 40, 8, 8), scale))
+score.append(pygame.transform.scale(tileset.subsurface(120, 48, 8, 8), scale))
+score.append(pygame.transform.scale(tileset.subsurface(120, 56, 8, 8), scale))
+score.append(pygame.transform.scale(tileset.subsurface(120, 64, 8, 8), scale))
+score.append(pygame.transform.scale(tileset.subsurface(120, 72, 8, 8), scale))
 
 #bullet
 
@@ -56,6 +80,14 @@ bullet1left = pygame.transform.flip(bullet1, True, False) # idem
 
 lifeBarSupport1 = pygame.transform.scale(tileset.subsurface(0, 104, 56, 8), (256, 32)) # idem
 lifeBarSupport2 = pygame.transform.flip(lifeBarSupport1, True, False) # idem
+
+#scoreSupport
+
+scoreSupport = pygame.transform.scale(tileset.subsurface(0, 80, 32, 16), (128, 64))
+
+#LifeBonus
+
+lifeBonus = pygame.transform.scale(tileset.subsurface(32, 0, 8, 8), scale)
 
 #SOUNDS
 

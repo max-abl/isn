@@ -1,0 +1,7 @@
+version 0.01 : 
+
+- ajout d'un changelog
+- ajout d'un timer (comptant les secondes écoulées dans le jeu)
+- ajout d'un système de bonus : 
+	- fait appparaître des bonus aux coordonnées aléatoires
+	- fait apparaître des bonus toutes les x secondes (ici 10)
