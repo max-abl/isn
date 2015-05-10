@@ -12,17 +12,17 @@ def process(player, player2, list1, list2, game): # fonction gérant les évène
 
 		elif event.type == pygame.KEYDOWN:
 			if event.key == player.right:
-				player.xspeed = player.speedX
+				player.xspeed = player.speed
 				player.image = player.imgR
 				player.isRight = True
 			if event.key == player.left:
-				player.xspeed = -player.speedX
+				player.xspeed = -player.speed
 				player.image = player.imgL
 				player.isRight = False
 			if event.key == player.up:
 				if player.yspeed == 0:				
 					player.jump.play()
-					player.yspeed = -player.speedY
+					player.yspeed = -(player.speed)*3.5
 			if event.key == player.gun:
 				player.fire.play()
 				if player.isRight == True:
@@ -36,17 +36,17 @@ def process(player, player2, list1, list2, game): # fonction gérant les évène
 			#PLAYER2----------------------
 
 			if event.key == player2.right:
-				player2.xspeed = player2.speedX
+				player2.xspeed = player2.speed
 				player2.image = player2.imgR
 				player2.isRight = True
 			if event.key == player2.left:
-				player2.xspeed = -player2.speedX
+				player2.xspeed = -player2.speed
 				player2.image = player2.imgL
 				player2.isRight = False
 			if event.key == player2.up:
 				if player2.yspeed == 0:				
 					player2.jump.play()
-					player2.yspeed = -player2.speedY
+					player2.yspeed = -(player2.speed)*3.5
 			if event.key == player2.gun or event.key == pygame.K_o:
 				player2.fire.play()
 				if player2.isRight == True:
@@ -100,9 +100,9 @@ def collision(player1, player2, levl): # fonction gérant les collisions entre b
 	
 	for item in Item.itemList:
 		if pygame.sprite.spritecollide(item, player1, False):
-			item.setBonus(player1[0])
+			item.setLife(player1[0])
 			item.destroy()
 		elif pygame.sprite.spritecollide(item, player2, False):
-			item.setBonus(player2[0])
+			item.setLife(player2[0])
 			item.destroy()
 			
