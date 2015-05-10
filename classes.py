@@ -23,7 +23,8 @@ class Player(pygame.sprite.Sprite): #Classe joueur
 		self.rect.x, self.rect.y = x, y
 		self.spawnX, self.spawnY = x, y
 		self.xspeed, self.yspeed = 0, 0
-		self.speed = 5
+		self.speedX = 5
+		self.speedY = self.speedX * 3.5
 		self.score = 0
 		self.life = 100
 		self.lifeBar = pygame.Surface((self.life * 2 + 1, 12))
@@ -104,6 +105,9 @@ class Player(pygame.sprite.Sprite): #Classe joueur
 		self.life += life
 		if self.life > 100:
 			self.life = 100
+
+	def setSpeed(self, speed):
+		self.speedX += speed
 
 	def hit(self, damage): # méthode pour prendre des dégâts
 		self.life -= damage
@@ -198,9 +202,19 @@ class LifeBonus(Item):
 		super(LifeBonus, self).__init__(x, y, img)
 		self.life = life
 	
-	def setLife(self, player):
+	def setBonus(self, player):
 		player.addLife(self.life)
 
+class SpeedBonus(Item):
+	def __init__(self, x, y, img, speed):
+		super(SpeedBonus, self).__init__(x, y, img)
+		self.speed = speed
+
+	def setBonus(self, player):
+		player.setSpeed(self.speed)
+
+	def disableBonus(self, player):
+		player.setSpeed(-self.speed)
 
 class ItemSpawner(object):
 	available = True
@@ -209,6 +223,7 @@ class ItemSpawner(object):
 		super(ItemSpawner, self).__init__()
 
 		self.time = time
+		self.timerBonus = []		
 
 	def update(self, gameTime):
 		if gameTime % self.time == 0 and self.available == True:
@@ -217,5 +232,7 @@ class ItemSpawner(object):
 
 	def spawnItem(self, typ):
 		rdm = random.randint(0, 3)
-		lifeBonus = LifeBonus(graphics.area[rdm][0], graphics.area[rdm][1], graphics.lifeBonus, 50)
-		
+		if rdm == 0:
+			lifeBonus = LifeBonus(graphics.area[rdm][0], graphics.area[rdm][1], graphics.lifeBonus, 50)
+		else:
+			speedBonus = SpeedBonus(graphics.area[rdm][0], graphics.area[rdm][1], graphics.lifeBonus, 5)

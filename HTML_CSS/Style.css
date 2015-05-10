@@ -1,0 +1,138 @@
+
+
+body{
+	margin:0px;
+	padding:0px;
+	background-color: #014B70;
+	background:url(images/binding_dark.png);
+	}
+
+
+#BlockMenu{
+	width:100%;
+	height:57px;
+	border-bottom:5px solid #B9121B;
+	box-shadow:5px 5px 10px black;
+	background-color: rgba(100, 100, 100, 0.0);
+	}
+	
+	
+#Menu {
+	overflow: hidden;
+	}
+
+	
+#MenUl,#MenUl li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  float: left;
+  position: relative;
+  }
+
+  
+#MenUl {
+  left: 50%;
+  }
+
+  
+#MenUl li {
+	right: 50%;
+	padding:0; 
+	box-sizing:border-box;
+	text-align:center;
+	min-width:175px;
+	list-style-type:none;
+	display:inline-block;
+	}	
+	
+
+#MenUl li  a {
+	display:inline-block;
+	color:#FFF;
+	background:url(images/A DEFINIR.png)top center repeat-x;
+	text-decoration:none;
+	padding:0px;
+	font-family:"Calibri"; 
+	font-weight:bold;
+	font-size:24px;
+	line-height:57px;
+	height:57px;
+	text-align:center;
+	font-weight:normal;
+	text-transform:uppercase;
+	min-width:175px;
+	}
+
+
+#content{
+	width:900px;
+	height:1200px;
+	margin:auto;
+	margin-top:20px;
+	background-color: rgba(255, 255, 255, 0.2);
+	padding-left:10px;
+	padding-right: 10px;
+	font-family:"calibri";
+	border:5px outset rgba(255, 255, 255, 0.0);
+	text-align:center;
+	}
+
+
+#footer{
+	width:100%;
+	height:200px;
+	margin:auto;
+	background:none;
+	margin-top:100px;
+	margin-bottom:20px;
+	font-family:"calibri";
+	border-top:5px solid blue;
+	border-bottom:5px solid blue;
+	text-align:center;
+	}
+
+#visa{
+	margin:auto;
+	background:url(images/visa1.png)no-repeat center;}
+	
+h2{
+	font-weight: normal;
+	font-family:"Comic Sans MS";
+	color : #C5C6C6;}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
