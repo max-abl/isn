@@ -5,11 +5,10 @@ from graphics import *
 from random import randint
 
 
-def process(player, player2): # fonction gérant les évènements de touche
+def process(player, player2, list1, list2, game): # fonction gérant les évènements de touche
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
-			pygame.quit()
-			sys.exit()
+			game.stop()
 
 		elif event.type == pygame.KEYDOWN:
 			if event.key == player.right:
@@ -83,6 +82,8 @@ def process(player, player2): # fonction gérant les évènements de touche
 					player2.image = player2.imgR
 				else:
 					player2.image = player2.imgL
+
+	collision(list1, list2, game.level)
 
 def collision(player1, player2, levl): # fonction gérant les collisions entre balles/blocs et balles/joueur
 	for b in Bullet.bullets:

@@ -12,9 +12,16 @@ ups = 60
 loopTime = 0
 secTime = 0
 
+menuBackground = []
+
+menuBackground.append(pygame.transform.scale(pygame.image.load("res/img/menu.png"), size))
+menuBackground.append(pygame.transform.scale(pygame.image.load("res/img/help.png"), size))
+
 icon = pygame.image.load("res/img/icon.png") # chargement de l'icone de la fenêtre
-fond = pygame.transform.scale(pygame.image.load("res/img/fond.png"), size) # idem pour le fond
+background = pygame.transform.scale(pygame.image.load("res/img/fond.png"), size) # idem pour le fond
 tileset = pygame.image.load("res/img/tileset.png") # idem pour l'image générale contenant toutes les textures
+
+cursor = pygame.transform.scale(pygame.image.load("res/img/cursor.png"), (64, 64))
 
 score = []
 area = (
@@ -46,30 +53,23 @@ player2fireleft = pygame.transform.flip(player2fire, True, False) # idem
 
 #block
 
-block1 = pygame.transform.scale(tileset.subsurface(8, 0, 8, 8), scale)  # idem
-
-#block1 = pygame.transform.scale(tileset.subsurface(64, 0, 8, 8), scale)
-#block2 = pygame.transform.scale(tileset.subsurface(72, 0, 8, 8), scale)
-#block3 = pygame.transform.scale(tileset.subsurface(80, 0, 8, 8), scale)
-#block4 = pygame.transform.scale(tileset.subsurface(64, 8, 8, 8), scale)
-#block5 = pygame.transform.scale(tileset.subsurface(72, 8, 8, 8), scale)
-#block6 = pygame.transform.scale(tileset.subsurface(80, 8, 8, 8), scale)
-#block7 = pygame.transform.scale(tileset.subsurface(64, 16, 8, 8), scale)
-#block8 = pygame.transform.scale(tileset.subsurface(72, 16, 8, 8), scale)
-#block9 = pygame.transform.scale(tileset.subsurface(80, 16, 8, 8), scale)
+block = pygame.transform.scale(tileset.subsurface(8, 0, 8, 8), scale)  # idem
 
 #number
 
-score.append(pygame.transform.scale(tileset.subsurface(120, 0, 8, 8), scale))
-score.append(pygame.transform.scale(tileset.subsurface(120, 8, 8, 8), scale))
-score.append(pygame.transform.scale(tileset.subsurface(120, 16, 8, 8), scale))
-score.append(pygame.transform.scale(tileset.subsurface(120, 24, 8, 8), scale))
-score.append(pygame.transform.scale(tileset.subsurface(120, 32, 8, 8), scale))
-score.append(pygame.transform.scale(tileset.subsurface(120, 40, 8, 8), scale))
-score.append(pygame.transform.scale(tileset.subsurface(120, 48, 8, 8), scale))
-score.append(pygame.transform.scale(tileset.subsurface(120, 56, 8, 8), scale))
-score.append(pygame.transform.scale(tileset.subsurface(120, 64, 8, 8), scale))
-score.append(pygame.transform.scale(tileset.subsurface(120, 72, 8, 8), scale))
+for x in range(0, 73, 8):
+	score.append(pygame.transform.scale(tileset.subsurface(120, x, 8, 8), scale))
+
+#score.append(pygame.transform.scale(tileset.subsurface(120, 0, 8, 8), scale))
+#score.append(pygame.transform.scale(tileset.subsurface(120, 8, 8, 8), scale))
+#score.append(pygame.transform.scale(tileset.subsurface(120, 16, 8, 8), scale))
+#score.append(pygame.transform.scale(tileset.subsurface(120, 24, 8, 8), scale))
+#score.append(pygame.transform.scale(tileset.subsurface(120, 32, 8, 8), scale))
+#score.append(pygame.transform.scale(tileset.subsurface(120, 40, 8, 8), scale))
+#score.append(pygame.transform.scale(tileset.subsurface(120, 48, 8, 8), scale))
+#score.append(pygame.transform.scale(tileset.subsurface(120, 56, 8, 8), scale))
+#score.append(pygame.transform.scale(tileset.subsurface(120, 64, 8, 8), scale))
+#score.append(pygame.transform.scale(tileset.subsurface(120, 72, 8, 8), scale))
 
 #bullet
 

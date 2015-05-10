@@ -71,6 +71,14 @@ class Player(pygame.sprite.Sprite): #Classe joueur
 		if self.life <= 0: # system de réaparition si le joueur n'a plus de vie
 			self.die()
 
+	def render(self, screen,sx, sy, lsx, lsy, lx, ly, lifeBarSupport):
+
+		screen.blit(self.image, (self.rect.x, self.rect.y))
+
+		self.drawLifeBar(screen, lsx, lsy, lx, ly, lifeBarSupport)
+
+		self.drawScore(screen , sx, sy)
+
 	def gravity(self, gravity = 1): #méthode de gravité
 		if self.yspeed == 0: # si le joueur est immobile, la gravité ne l'affecte pas
 			self.yspeed = 1
@@ -139,32 +147,8 @@ class Map(object): #classe map
 				for car in lines:
 					if car != '\n': # on ignore les retours à la ligne
 						if car == "#": # si on trouve le caractère "#" On crée un objet bloc que l'on ajoute à une liste
-							block = Block(x, y, graphics.block1)
+							block = Block(x, y, graphics.block)
 							self.blockList.add(block)
-						#elif car == "1": # si on trouve le caractère "#" On crée un objet bloc que l'on ajoute à une liste
-						#	block = Block(x, y, block1)
-						#	self.blockList.add(block)
-						#elif car == "2": # si on trouve le caractère "#" On crée un objet bloc que l'on ajoute à une liste
-						#	block = Block(x, y, block2)
-						#	self.blockList.add(block)
-						#elif car == "3": # si on trouve le caractère "#" On crée un objet bloc que l'on ajoute à une liste
-						#	block = Block(x, y, block3)
-						#	self.blockList.add(block)
-						#elif car == "4": # si on trouve le caractère "#" On crée un objet bloc que l'on ajoute à une liste
-						#	block = Block(x, y, block4)
-						#	self.blockList.add(block)
-						#elif car == "6": # si on trouve le caractère "#" On crée un objet bloc que l'on ajoute à une liste
-						#	block = Block(x, y, block6)
-						#	self.blockList.add(block)
-						#elif car == "7": # si on trouve le caractère "#" On crée un objet bloc que l'on ajoute à une liste
-						#	block = Block(x, y, block7)
-						#	self.blockList.add(block)
-						#elif car == "8": # si on trouve le caractère "#" On crée un objet bloc que l'on ajoute à une liste
-						#	block = Block(x, y, block8)
-						#	self.blockList.add(block)
-						#elif car == "9": # si on trouve le caractère "#" On crée un objet bloc que l'on ajoute à une liste
-						#	block = Block(x, y, block9)
-						#	self.blockList.add(block)
 					x += 32
 				y += 32
 
