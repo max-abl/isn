@@ -46,6 +46,12 @@ class Game(object):
 
 		self.level.generate()
 
+	def getScores(self):
+		if self.player1.score == 9:
+			self.stop()
+		elif self.player2.score == 9:
+			self.stop()
+
 	def start(self):
 
 		self.menu.start()
@@ -93,7 +99,8 @@ class Game(object):
 
 		Bullet.move()
 		self.spawner.update(self.seconds)
-
+		
+		self.getScores()
 
 	def render(self):
 		self.screen.blit(self.background, (0, 0))
