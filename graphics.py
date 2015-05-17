@@ -14,8 +14,11 @@ secTime = 0
 
 menuBackground = []
 
+
 menuBackground.append(pygame.transform.scale(pygame.image.load("res/img/menu.png"), size))
 menuBackground.append(pygame.transform.scale(pygame.image.load("res/img/help.png"), size))
+menuBackground.append(pygame.transform.scale(pygame.image.load("res/img/win1.png"), size))
+menuBackground.append(pygame.transform.scale(pygame.image.load("res/img/win2.png"), size))
 
 icon = pygame.image.load("res/img/icon.png") # chargement de l'icone de la fenêtre
 background = pygame.transform.scale(pygame.image.load("res/img/fond.png"), size) # idem pour le fond
@@ -88,6 +91,7 @@ scoreSupport = pygame.transform.scale(tileset.subsurface(0, 80, 32, 16), (128, 6
 #LifeBonus
 
 lifeBonus = pygame.transform.scale(tileset.subsurface(32, 0, 8, 8), scale)
+speedBonus =  pygame.transform.scale(tileset.subsurface(48, 0, 8, 8), scale)
 
 #SOUNDS
 

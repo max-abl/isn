@@ -2,10 +2,9 @@
 
 A faire :
 
-- Menu
+- ECRAN DE FIN
 - Changement de taille de l'écran dans le menu
 - Choix de map ( si possible )
-
 - Mode Multi ( si possible )
 
 

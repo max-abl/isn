@@ -8,14 +8,16 @@ class Menu(object):
 
 		self.choice = 0
 		self.index = 0
+		self.baseIndex = 0
 
 		self.out = 1
 
 		self.cursorCoords = [264, 416, 560]
 
-	def start(self):
+	def start(self, index):
+		self.index = index
+		self.baseIndex = index
 		self.running = True
-
 		self.loop()
 
 	def stop(self):
@@ -50,9 +52,9 @@ class Menu(object):
 		 			if self.choice > 2: self.choice = 0
 
 		 		if event.key == pygame.K_ESCAPE and self.index == 1:
-		 			self.index = 0
+		 			self.index = self.baseIndex
 
-		 		if event.key == pygame.K_RETURN and self.index == 0:
+		 		if event.key == pygame.K_RETURN and self.index == self.baseIndex:
 		 			if self.choice == 0:
 		 				self.out = 1
 		 				self.stop()
@@ -67,7 +69,9 @@ class Menu(object):
 	def render(self):
 		self.game.screen.blit(graphics.menuBackground[self.index], (0, 0))
 
-		if self.index == 0:
+		if self.index == self.baseIndex:
 			self.game.screen.blit(graphics.cursor, (448, self.cursorCoords[self.choice]))
 
 		pygame.display.update()
+
+

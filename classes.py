@@ -24,6 +24,8 @@ class Player(pygame.sprite.Sprite): #Classe joueur
 		self.spawnX, self.spawnY = x, y
 		self.xspeed, self.yspeed = 0, 0
 		self.speed = 5
+		self.speedX = 5
+		self.speedY = self.speedX * 3.5
 		self.score = 0
 		self.life = 100
 		self.lifeBar = pygame.Surface((self.life * 2 + 1, 12))
@@ -105,6 +107,9 @@ class Player(pygame.sprite.Sprite): #Classe joueur
 		if self.life > 100:
 			self.life = 100
 
+	def setSpeed(self, speed):
+		self.speedX += speed
+
 	def hit(self, damage): # méthode pour prendre des dégâts
 		self.life -= damage
 
@@ -152,6 +157,14 @@ class Map(object): #classe map
 					x += 32
 				y += 32
 
+	def destroyAll(self):
+		for block in self.blockList:
+			self.blockList.remove(block)
+			del block
+
+		del self
+
+
 class Bullet(pygame.sprite.Sprite): #classe balle
 	bullets = pygame.sprite.Group()
 
@@ -177,6 +190,11 @@ class Bullet(pygame.sprite.Sprite): #classe balle
 		Bullet.bullets.remove(self)
 		del self
 
+	@staticmethod
+	def destroyAll():
+		for b in Bullet.bullets:
+			b.destroy()
+
 class Item(pygame.sprite.Sprite):
 	itemList = pygame.sprite.Group()
 	
@@ -192,14 +210,30 @@ class Item(pygame.sprite.Sprite):
 		ItemSpawner.available = True
 		del self
 
+	@staticmethod
+	def destroyAll():
+		for i in Item.itemList:
+			i.destroy()
+
 class LifeBonus(Item):
 	
 	def __init__(self, x, y, img, life):
 		super(LifeBonus, self).__init__(x, y, img)
 		self.life = life
 	
-	def setLife(self, player):
-		player.addLife(self.life)
+	def setBonus(self, player):
+ 		player.addLife(self.life)
+
+class SpeedBonus(Item):
+	def __init__(self, x, y, img, speed):
+		super(SpeedBonus, self).__init__(x, y, img)
+		self.speed = speed
+
+	def setBonus(self, player):
+		player.setSpeed(self.speed)
+
+	def disableBonus(self, player):
+		player.setSpeed(-self.speed)
 
 
 class ItemSpawner(object):
@@ -209,13 +243,40 @@ class ItemSpawner(object):
 		super(ItemSpawner, self).__init__()
 
 		self.time = time
+		self.timerBonus = []
 
-	def update(self, gameTime):
+		self.speedBonus = 0
+
+		self.timer = 0
+		
+
+	def update(self, gameTime, player1, player2):
+		
 		if gameTime % self.time == 0 and self.available == True:
-			self.spawnItem(1)
+			self.spawnItem(1, gameTime)
 			ItemSpawner.available = False
 
-	def spawnItem(self, typ):
+		if player1.speedX != 5:
+
+			self.timerBonus.append(gameTime)
+			if self.timerBonus[-1] - self.timerBonus[0] == 5:
+				self.speedBonus.disableBonus(player1)
+
+		if player2.speedX != 5:
+			self.timerBonus.append(gameTime)
+			if self.timerBonus[-1] - self.timerBonus[0] == 5:
+				self.speedBonus.disableBonus(player2)
+
+
+
+
+	def spawnItem(self, typ, gameTime):
 		rdm = random.randint(0, 3)
-		lifeBonus = LifeBonus(graphics.area[rdm][0], graphics.area[rdm][1], graphics.lifeBonus, 50)
+		
+		if random.randint(0, 1):
+ 			lifeBonus = LifeBonus(graphics.area[rdm][0], graphics.area[rdm][1], graphics.lifeBonus, 50)
+		else:
+ 			self.speedBonus = SpeedBonus(graphics.area[rdm][0], graphics.area[rdm][1], graphics.speedBonus, 5)
+
+
 		

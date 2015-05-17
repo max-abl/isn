@@ -14,6 +14,8 @@ class Game(object):
 
 		self.running = False
 
+		self.winIndex = 0
+
 		self.loopTime = 0
 		self.seconds = 0
 
@@ -47,14 +49,17 @@ class Game(object):
 		self.level.generate()
 
 	def getScores(self):
-		if self.player1.score == 9:
+		if self.player1.score == 2:
+			self.winIndex = 2
 			self.stop()
-		elif self.player2.score == 9:
+		elif self.player2.score == 2:
+			self.winIndex = 3
 			self.stop()
+
 
 	def start(self):
 
-		self.menu.start()
+		self.menu.start(self.winIndex)
 
 		self.running = True
 
@@ -88,7 +93,9 @@ class Game(object):
 
 			clock.tick(ups)
 
-		self.exit()
+		self.destroyAll()
+
+		return self.start()
 
 
 	def update(self, list1, list2):
@@ -98,7 +105,7 @@ class Game(object):
 		self.player2.update(self.level.blockList)
 
 		Bullet.move()
-		self.spawner.update(self.seconds)
+		self.spawner.update(self.seconds, self.player1, self.player2)
 		
 		self.getScores()
 
@@ -124,3 +131,17 @@ class Game(object):
 		else:
 			self.loopTime = 0
 			self.seconds += 1
+
+	def destroyAll(self):
+		del self.player1
+		del self.player2
+
+		del self.spawner
+
+		Item.destroyAll()
+		Bullet.destroyAll()
+
+		self.level.destroyAll()
+
+
+
