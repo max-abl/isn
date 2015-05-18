@@ -11,6 +11,8 @@ def process(player, player2, list1, list2, game): # fonction gérant les évène
 			game.exit()
 
 		elif event.type == pygame.KEYDOWN:
+			if event.key == pygame.K_ESCAPE:
+				game.exit()
 			if event.key == player.right:
 				player.xspeed = player.speedX
 				player.image = player.imgR

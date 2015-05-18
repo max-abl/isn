@@ -108,7 +108,7 @@ class Player(pygame.sprite.Sprite): #Classe joueur
 			self.life = 100
 
 	def setSpeed(self, speed):
-		self.speedX += speed
+		self.speedX = speed
 
 	def hit(self, damage): # méthode pour prendre des dégâts
 		self.life -= damage
@@ -233,7 +233,7 @@ class SpeedBonus(Item):
 		player.setSpeed(self.speed)
 
 	def disableBonus(self, player):
-		player.setSpeed(-self.speed)
+		player.setSpeed(self.speed / 2)
 
 
 class ItemSpawner(object):
@@ -276,7 +276,7 @@ class ItemSpawner(object):
 		if random.randint(0, 1):
  			lifeBonus = LifeBonus(graphics.area[rdm][0], graphics.area[rdm][1], graphics.lifeBonus, 50)
 		else:
- 			self.speedBonus = SpeedBonus(graphics.area[rdm][0], graphics.area[rdm][1], graphics.speedBonus, 5)
+ 			self.speedBonus = SpeedBonus(graphics.area[rdm][0], graphics.area[rdm][1], graphics.speedBonus, 10)
 
 
 		

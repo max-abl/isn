@@ -25,7 +25,7 @@ class Game(object):
 
 	def initScreen(self):
 
-		self.screen = pygame.display.set_mode(self.size)
+		self.screen = pygame.display.set_mode(self.size, FULLSCREEN)
 		pygame.display.set_icon(self.icon)
 		pygame.display.set_caption(self.title)
 
@@ -49,10 +49,10 @@ class Game(object):
 		self.level.generate()
 
 	def getScores(self):
-		if self.player1.score == 2:
+		if self.player1.score == 9:
 			self.winIndex = 2
 			self.stop()
-		elif self.player2.score == 2:
+		elif self.player2.score == 9:
 			self.winIndex = 3
 			self.stop()
 
