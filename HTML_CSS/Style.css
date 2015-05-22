@@ -8,7 +8,7 @@ body{
 	}
 
 
-#BlockMenu{
+#blockMenu{
 	width:100%;
 	height:57px;
 	box-shadow:5px 5px 10px black;
@@ -17,27 +17,19 @@ body{
 	}
 	
 	
-#Menu {
-	overflow: hidden;
+nav {
+    display: inline-block;
+    text-align: center;
+    width: 99%;
 	}
 
-	
-#MenUl,#MenUl li {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  float: left;
-  position: relative;
+  
+nav ul{
+  margin: auto;
   }
 
   
-#MenUl {
-  left: 50%;
-  }
-
-  
-#MenUl li {
-	right: 50%;
+nav li{
 	padding:0; 
 	text-align:center;
 	min-width:175px;
@@ -46,23 +38,32 @@ body{
 	}	
 	
 
-#MenUl li  a {
-	display:inline-block;
+nav a{
 	color:#FFF;
-	background:url(images/A DEFINIR.png)top center repeat-x;
 	text-decoration:none;
-	padding:0px;
 	font-family:"Calibri"; 
 	font-weight:bold;
 	font-size:24px;
+	font-weight:normal;
 	line-height:57px;
 	height:57px;
 	text-align:center;
-	font-weight:normal;
 	text-transform:uppercase;
 	min-width:175px;
+	margin: auto;
 	}
 
+nav a:hover{
+	text-decoration:underline;
+	}
+
+#baniere{
+	width:720px;
+	height:270px;
+	margin:auto;
+	padding-left:10px;
+	padding-right: 10px;
+	}
 
 #mainContent{
 	width:600px;
@@ -75,11 +76,14 @@ body{
 	color:white;
 	}
 
-
-
+video{
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
 }
 
-#footer{
+footer{
 	width:100%;
 	height:200px;
 	margin:auto;
@@ -90,55 +94,16 @@ body{
 	text-align:center;
 	}
 
-
 p{
 	text-align: left;
 	font-family: Verdana, sans-serif;
-	font-size: 14px;
-}
+	font-size: 15px;
+	}
 
 h1{
 	text-align: center;
-	font-family: Verdana, sans-serif;
+	font-family: "Calibri", sans-serif;
 	font-size: 14px;
 	padding-top: 20px;
-}
-
-
-
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	color: blue;
+	}
