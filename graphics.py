@@ -3,16 +3,19 @@ from pygame.locals import *
 
 # constantes
 
-size = width, height = 1280, 720
-scale = (32, 32)
-ups = 60
+size = width, height = 1280, 720 #Dimensions de l'écran
+scale = (32, 32) # taille réelle des blocs
+ups = 60 # : raffraichissement par secondes
 
-#time
 
-loopTime = 0
-secTime = 0
+area = ( # différents points d'apparition des bonus
+	(624, 320),
+	(624, 96),
+	(624, 480),
+	(624, 608)
+	)
 
-menuBackground = []
+menuBackground = [] # liste contenant toutes les images de fond du menu
 
 
 menuBackground.append(pygame.transform.scale(pygame.image.load("res/img/menu.png"), size))
@@ -24,24 +27,19 @@ icon = pygame.image.load("res/img/icon.png") # chargement de l'icone de la fenê
 background = pygame.transform.scale(pygame.image.load("res/img/fond.png"), size) # idem pour le fond
 tileset = pygame.image.load("res/img/tileset.png") # idem pour l'image générale contenant toutes les textures
 
-cursor = pygame.transform.scale(pygame.image.load("res/img/cursor.png"), (64, 64))
+cursor = pygame.transform.scale(pygame.image.load("res/img/cursor.png"), (64, 64)) # flèche du menu
 
-score = []
-area = (
-	(624, 320),
-	(624, 96),
-	(624, 480),
-	(624, 608)
-	)
+score = [] # liste contenant les nombres en image : utilisés pour le score
+
 #Levels
 
-lvl1 = "res/levels/lvl1.txt" # idem pour le fichier .txt représentant le niveau
+lvl1 = "res/levels/lvl1.txt" #  chargement fichier .txt représentant le niveau
 
 #TEXTURES
 
 #personnage
 
-player1 = pygame.transform.scale(tileset.subsurface(0, 8, 8, 8), scale) #chargement de l'mage du joueur en découpant une partie de l'image principale 
+player1 = pygame.transform.scale(tileset.subsurface(0, 8, 8, 8), scale) #chargement de l'image du joueur en découpant une partie de l'image principale 
 #tout en la grossisant x4
 player1left = pygame.transform.flip(player1, True, False) #On renverse horizontalement l'image précédente pour quand le joueur est orienté vers la gauche
 
@@ -60,19 +58,8 @@ block = pygame.transform.scale(tileset.subsurface(8, 0, 8, 8), scale)  # idem
 
 #number
 
-for x in range(0, 73, 8):
-	score.append(pygame.transform.scale(tileset.subsurface(120, x, 8, 8), scale))
-
-#score.append(pygame.transform.scale(tileset.subsurface(120, 0, 8, 8), scale))
-#score.append(pygame.transform.scale(tileset.subsurface(120, 8, 8, 8), scale))
-#score.append(pygame.transform.scale(tileset.subsurface(120, 16, 8, 8), scale))
-#score.append(pygame.transform.scale(tileset.subsurface(120, 24, 8, 8), scale))
-#score.append(pygame.transform.scale(tileset.subsurface(120, 32, 8, 8), scale))
-#score.append(pygame.transform.scale(tileset.subsurface(120, 40, 8, 8), scale))
-#score.append(pygame.transform.scale(tileset.subsurface(120, 48, 8, 8), scale))
-#score.append(pygame.transform.scale(tileset.subsurface(120, 56, 8, 8), scale))
-#score.append(pygame.transform.scale(tileset.subsurface(120, 64, 8, 8), scale))
-#score.append(pygame.transform.scale(tileset.subsurface(120, 72, 8, 8), scale))
+for y in range(0, 73, 8): # ajout de toutes les images des nombres dans la liste score
+	score.append(pygame.transform.scale(tileset.subsurface(120, y, 8, 8), scale))
 
 #bullet
 
@@ -97,7 +84,7 @@ speedBonus =  pygame.transform.scale(tileset.subsurface(48, 0, 8, 8), scale)
 
 pygame.mixer.init() # initialisation du module mixer permettant le chargement de sons
 
-jump = pygame.mixer.Sound("res/sound/jump.wav") # chargement du son utilisé pour le saut du joeur
+jump = pygame.mixer.Sound("res/sound/jump.wav") # chargement du son utilisé pour le saut du joueur
 jump.set_volume(0.3) # modifie le volume du son chargé
 fire = pygame.mixer.Sound("res/sound/fire.wav") # idem
 fire.set_volume(0.5) # idem

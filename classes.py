@@ -1,29 +1,23 @@
 import pygame, random, graphics
 from pygame.locals import *
 
-
-
-#self.image = pygame.Surface((width, height))
-#self.image.fill(color)
-
-class Player(pygame.sprite.Sprite): #Classe joueur
+class Player(pygame.sprite.Sprite): #Classe joueur hérite de la classe sprite
 
 	def __init__(self, x, y, isRight, up, left, right, gun, imgR, imgL, imgFR, imgFL, jump, fire):
-		super(Player, self).__init__()
+		super(Player, self).__init__() # On initialise les méthodes et attributs de la class Sprite
 
-		#PARAMETRES
+		#ATTRIBUTS
 
-		if isRight == True: self.image = imgR
+		if isRight == True: self.image = imgR # self.image : attribut de la classe Sprite
 		else: self.image = imgL
 		self.imgR = imgR
 		self.imgL = imgL
 		self.imgFR = imgFR
 		self.imgFL = imgFL
-		self.rect = self.image.get_rect()
+		self.rect = self.image.get_rect() #On récupère le rectangle de l'image
 		self.rect.x, self.rect.y = x, y
 		self.spawnX, self.spawnY = x, y
 		self.xspeed, self.yspeed = 0, 0
-		self.speed = 5
 		self.speedX = 5
 		self.speedY = self.speedX * 3.5
 		self.score = 0
@@ -32,8 +26,8 @@ class Player(pygame.sprite.Sprite): #Classe joueur
 		self.lifeBar.fill((10, 250, 10))
 		self.jump = jump
 		self.fire = fire
-		self.isRight = isRight
-		self.up = up
+		self.isRight = isRight # utilisé pour l'orientation : choix de l'image
+		self.up = up # correspond aux touches du clavier
 		self.left = left
 		self.right = right
 		self.gun = gun
@@ -46,7 +40,7 @@ class Player(pygame.sprite.Sprite): #Classe joueur
 
 	def update(self, collidable = pygame.sprite.Group()): #méthode gérant les collisions et la gravité
 
-		self.gravity() # appel de la fonction qui met en place la gravité
+		self.gravity() # appel de la méthode qui met en place la gravité
 
 		self.rect.x += self.xspeed # on incrémente toujours la coordonnée x de la vitesse x (de base à 0 : le joueur n'avance pas)
 
@@ -70,10 +64,10 @@ class Player(pygame.sprite.Sprite): #Classe joueur
 				self.rect.top = collided.rect.bottom
 				self.yspeed = 0
 
-		if self.life <= 0: # system de réaparition si le joueur n'a plus de vie
+		if self.life <= 0: # système de réaparition si le joueur n'a plus de vie
 			self.die()
 
-	def render(self, screen,sx, sy, lsx, lsy, lx, ly, lifeBarSupport):
+	def render(self, screen,sx, sy, lsx, lsy, lx, ly, lifeBarSupport): # affichage joueur, vie et score
 
 		screen.blit(self.image, (self.rect.x, self.rect.y))
 
@@ -97,7 +91,7 @@ class Player(pygame.sprite.Sprite): #Classe joueur
 		screen.blit(self.lifeBar, (xx, yy))
 
 	def drawScore(self, screen, x, y):
-		screen.blit(graphics.score[self.score], (x, y))
+		screen.blit(graphics.score[self.score], (x, y)) # affiche 1,2,3... en fonction de self.score
 
 	def addScore(self, number):
 		self.score += number
@@ -115,8 +109,8 @@ class Player(pygame.sprite.Sprite): #Classe joueur
 
 	def die(self): # méthode de réaparition
 		self.life = 100
-		self.enemy.addScore(1)
-		self.enemy.addLife(25)
+		self.enemy.addScore(1) # appel de la fonction addScore() de l'enemi
+		self.enemy.addLife(25) # on lui redonne de la vie
 		self.rect.x, self.rect.y = self.spawnX, self.spawnY
 
 class Block(pygame.sprite.Sprite): # classe bloc
@@ -124,18 +118,16 @@ class Block(pygame.sprite.Sprite): # classe bloc
 	def __init__(self, x, y, img):
 		super(Block, self).__init__()
 
-		#PARAMETRES
+		#ATTRIBUTS
 
 		self.image = img
 		self.rect = self.image.get_rect()
 		self.rect.x, self.rect.y = x, y
 
-class Map(object): #classe map
+class Map(): #classe map
 
 	def __init__(self, level):
-		super(Map, self).__init__()
-
-		#PARAMETRES
+		#ATTRIBUTS
 
 		self.blockList = pygame.sprite.Group()
 		self.level = level
@@ -158,11 +150,11 @@ class Map(object): #classe map
 				y += 32
 
 	def destroyAll(self):
-		for block in self.blockList:
-			self.blockList.remove(block)
-			del block
+		for block in self.blockList: # On parcours la liste
+			self.blockList.remove(block) # on enlève de la liste l'objet
+			del block # on le détruit
 
-		del self
+		del self # ensuite on détruit le niveau
 
 
 class Bullet(pygame.sprite.Sprite): #classe balle
@@ -171,17 +163,17 @@ class Bullet(pygame.sprite.Sprite): #classe balle
 	def __init__(self, x, y, speed, img):
 		super(Bullet, self).__init__()
 
-		#PARAMETRES
+		#ATTRIBUTS
 
 		self.image = img
 		self.rect = self.image.get_rect()
 		self.rect.x, self.rect.y = x, y
 		self.speed = speed
-		Bullet.bullets.add(self)
+		Bullet.bullets.add(self) # à chaque balle créée on l'ajoute à la liste
 
 	#METHODES
 
-	@staticmethod
+	@staticmethod # méthode statique : peut être appelée à travers la classe Bullet
 	def move(): # méthode affectant toutes les instances de la classe Bullet permettant de les faires toutes bouger
 		for bullet in Bullet.bullets:
 			bullet.rect.x += bullet.speed
@@ -191,7 +183,7 @@ class Bullet(pygame.sprite.Sprite): #classe balle
 		del self
 
 	@staticmethod
-	def destroyAll():
+	def destroyAll(): # d&truit toutes les balles
 		for b in Bullet.bullets:
 			b.destroy()
 
@@ -205,7 +197,7 @@ class Item(pygame.sprite.Sprite):
 		self.rect.x, self.rect.y = x, y
 		Item.itemList.add(self)
 
-	def destroy(self):
+	def destroy(self): # comme pour la classe Bullet
 		Item.itemList.remove(self)
 		ItemSpawner.available = True
 		del self
@@ -219,64 +211,65 @@ class LifeBonus(Item):
 	
 	def __init__(self, x, y, img, life):
 		super(LifeBonus, self).__init__(x, y, img)
-		self.life = life
+		self.life = life # gère la vie à redonner
 	
-	def setBonus(self, player):
+	def setBonus(self, player): # met en place le bonus
  		player.addLife(self.life)
 
 class SpeedBonus(Item):
 	def __init__(self, x, y, img, speed):
 		super(SpeedBonus, self).__init__(x, y, img)
-		self.speed = speed
+		self.speed = speed # gère la vitesse à donner
 
 	def setBonus(self, player):
 		player.setSpeed(self.speed)
 
-	def disableBonus(self, player):
+	def disableBonus(self, player): # enlève le bonus
 		player.setSpeed(self.speed / 2)
 
 
-class ItemSpawner(object):
-	available = True
+class ItemSpawner():
+	available = True # utilisé pour savoir si il y a un item ou non
 	
 	def __init__(self, time):
-		super(ItemSpawner, self).__init__()
 
-		self.time = time
-		self.timerBonus = []
+		self.time = time #gère la durée entre chq bonus
+		self.timerBonus = []  #Liste permettant de savoir depuis combien de temps le bonus est actif
 
-		self.speedBonus = 0
+		self.speedBonus = 0 # initialise le bonus de vitesse		
 
-		self.timer = 0
+	def update(self, gameTime, player1, player2): # récupère le tps du jeu et les 2 joueurs
 		
+		if gameTime % self.time == 0 and self.available == True: #toutes les "self.time" secondes du jeu (ex : 10s)
+			self.spawnItem(1, gameTime) # appel de la méthode spawnItem()
+			ItemSpawner.available = False # indique qu'un autre item ne peut pas spawner
 
-	def update(self, gameTime, player1, player2):
-		
-		if gameTime % self.time == 0 and self.available == True:
-			self.spawnItem(1, gameTime)
-			ItemSpawner.available = False
+		if player1.speedX != 5: # si bonus actif
+			self.timerBonus.append(gameTime) #ajoute dans une liste le temps à partir du début du bonus
+			if self.timerBonus[-1] - self.timerBonus[0] == 5: #(1)
+				self.speedBonus.disableBonus(player1) #On arrête le bonus
+				self.timerBonus = [] # On réinitialise la liste d'une longueur de 0 sinon bug
 
-		if player1.speedX != 5:
+				#(1) Quand la soustraction du dernier et du premier élement == 5 : donc 5s passées
 
-			self.timerBonus.append(gameTime)
-			if self.timerBonus[-1] - self.timerBonus[0] == 5:
-				self.speedBonus.disableBonus(player1)
-
-		if player2.speedX != 5:
+		if player2.speedX != 5: #Idem
 			self.timerBonus.append(gameTime)
 			if self.timerBonus[-1] - self.timerBonus[0] == 5:
 				self.speedBonus.disableBonus(player2)
+				self.timerBonus = []
 
 
 
 
-	def spawnItem(self, typ, gameTime):
-		rdm = random.randint(0, 3)
+	def spawnItem(self, typ, gameTime):# crée un bonus
+		rdm = random.randint(0, 3) # gère la position aléatoire du bonus
 		
-		if random.randint(0, 1):
- 			lifeBonus = LifeBonus(graphics.area[rdm][0], graphics.area[rdm][1], graphics.lifeBonus, 50)
+		if random.randint(0, 1): # gère le type de bonus : aléatoire
+ 			lifeBonus = LifeBonus(graphics.area[rdm][0], graphics.area[rdm][1], graphics.lifeBonus, 50) # (1)
 		else:
- 			self.speedBonus = SpeedBonus(graphics.area[rdm][0], graphics.area[rdm][1], graphics.speedBonus, 10)
+ 			self.speedBonus = SpeedBonus(graphics.area[rdm][0], graphics.area[rdm][1], graphics.speedBonus, 10) #(2)
 
+ 			#(1)spawn du bonus de vie
+ 			#(2)spawn du bonus de vitesse
 
 		

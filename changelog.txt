@@ -12,3 +12,8 @@ version 0.02 :
 - ajout d'une classe menu
 - ajout de textures
 - implémentation d'un système de menu
+
+version 0.1:
+
+- correction de certains bugs
+- ajout de commentaires du code

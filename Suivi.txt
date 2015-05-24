@@ -2,7 +2,7 @@
 
 A faire :
 
-- ECRAN DE FIN
+
 - Changement de taille de l'écran dans le menu
 - Choix de map ( si possible )
 - Mode Multi ( si possible )
@@ -21,12 +21,13 @@ FAIT :
 - sons
 - Affichage de score
 - ajout de bonus
+- écran de fin
 
 
 
 EN COURS :
 
-- Tout le coté graphique ( fait mais à améliorer plus tard si possible )
+- rien
 
 A LIRE :
 
