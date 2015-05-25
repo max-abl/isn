@@ -68,7 +68,7 @@ nav a:hover{
 
 #mainContent{
 	width:600px;
-	height:1200px;
+	height:800px;
 	margin:auto;
 	margin-top:50px;
 	padding-left:10px;
@@ -79,14 +79,24 @@ nav a:hover{
 #buttonDL{
 	width:200px;
 	height:40px;
-	background: rgba(360,360,360,0.4);
+	background: rgba(360,360,360,0.7);
 	margin:auto;
-	border-radius: 10px;
 	text-align: center;
 	font-family: "Calibri";
 	font-size: 20px;
 	padding-top:10px;
 }
+
+#buttonDL a{
+	 color: #309C00; 
+ 	text-decoration: none; 
+	font-weight:bold; 
+}
+
+#buttonDL a:hover{
+ 	text-decoration: underline; 
+}
+
 
 video{
   top: 0px;
@@ -112,10 +122,9 @@ p{
 	font-size: 20px;
 	}
 
-h1{
+h4{
 	text-align: center;
 	font-family: "Calibri", sans-serif;
-	font-size: 14px;
+	font-size: 10px;
 	padding-top: 20px;
-	color: blue;
 	}
