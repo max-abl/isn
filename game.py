@@ -84,6 +84,8 @@ class Game():
 		list1 = [self.player1] # liste utilisée pour gérer les collisions entre balles et joueur
 		list2 = [self.player2]
 
+		graphics.gameMusic.play(-1) # -1 : indique que la musique se joue indéfiniment
+
 		while self.running: # tant que self.running == True
 			self.update(list1, list2) # On appelle la méthode update du jeu
 			self.render() # idem avec la méthode render()
@@ -95,6 +97,8 @@ class Game():
 			clock.tick(ups) # On régule le nombre de tours de boucles par seconde
 
 		self.destroyAll() # en sortant de la boucle : fin du jeu : on détruit tous les objets
+
+		graphics.gameMusic.stop()
 
 		return self.start() # en sortant de la boucle on appelle la méthode start
 

@@ -88,5 +88,9 @@ jump = pygame.mixer.Sound("res/sound/jump.wav") # chargement du son utilisé pou
 jump.set_volume(0.3) # modifie le volume du son chargé
 fire = pygame.mixer.Sound("res/sound/fire.wav") # idem
 fire.set_volume(0.5) # idem
+select = pygame.mixer.Sound("res/sound/select.wav")
+select.set_volume(0.5)
+gameMusic = pygame.mixer.Sound("res/sound/gamemusic.wav")
+gameMusic.set_volume(0.8)
 
 pygame.mixer.quit() # On quitte le module

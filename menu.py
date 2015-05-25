@@ -43,11 +43,13 @@ class Menu(object):
 		 		
 
 		 	elif event.type == pygame.KEYDOWN:
-		 		if event.key == pygame.K_UP:
+		 		if event.key == pygame.K_UP and self.index != 1:
+		 			graphics.select.play()
 		 			self.choice -= 1
 		 			if self.choice < 0: self.choice = 2
 
-		 		if event.key == pygame.K_DOWN:
+		 		if event.key == pygame.K_DOWN and self.index != 1:
+		 			graphics.select.play()
 		 			self.choice += 1
 		 			if self.choice > 2: self.choice = 0
 
