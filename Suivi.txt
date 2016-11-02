@@ -1,5 +1,3 @@
-
-
 A faire :
 
 
@@ -36,7 +34,7 @@ déplacement du joueur 1 :
 - droite : "d"
 - gauche : "q"
 - tirer : "f"
- 
+
  (passer en clavier qwerty si les touches ne réagissent pas)
 
  déplacement du joueur 2 :

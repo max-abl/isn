@@ -189,7 +189,7 @@ class Bullet(pygame.sprite.Sprite): #classe balle
 
 class Item(pygame.sprite.Sprite):
 	itemList = pygame.sprite.Group()
-	
+
 	def __init__(self, x, y, img):
 		super(Item, self).__init__()
 		self.image = img
@@ -208,13 +208,13 @@ class Item(pygame.sprite.Sprite):
 			i.destroy()
 
 class LifeBonus(Item):
-	
+
 	def __init__(self, x, y, img, life):
 		super(LifeBonus, self).__init__(x, y, img)
 		self.life = life # gère la vie à redonner
-	
+
 	def setBonus(self, player): # met en place le bonus
- 		player.addLife(self.life)
+		player.addLife(self.life)
 
 class SpeedBonus(Item):
 	def __init__(self, x, y, img, speed):
@@ -230,16 +230,16 @@ class SpeedBonus(Item):
 
 class ItemSpawner():
 	available = True # utilisé pour savoir si il y a un item ou non
-	
+
 	def __init__(self, time):
 
 		self.time = time #gère la durée entre chq bonus
 		self.timerBonus = []  #Liste permettant de savoir depuis combien de temps le bonus est actif
 
-		self.speedBonus = 0 # initialise le bonus de vitesse		
+		self.speedBonus = 0 # initialise le bonus de vitesse
 
 	def update(self, gameTime, player1, player2): # récupère le tps du jeu et les 2 joueurs
-		
+
 		if gameTime % self.time == 0 and self.available == True: #toutes les "self.time" secondes du jeu (ex : 10s)
 			self.spawnItem(1, gameTime) # appel de la méthode spawnItem()
 			ItemSpawner.available = False # indique qu'un autre item ne peut pas spawner
@@ -263,13 +263,11 @@ class ItemSpawner():
 
 	def spawnItem(self, typ, gameTime):# crée un bonus
 		rdm = random.randint(0, 3) # gère la position aléatoire du bonus
-		
+
 		if random.randint(0, 1): # gère le type de bonus : aléatoire
- 			lifeBonus = LifeBonus(graphics.area[rdm][0], graphics.area[rdm][1], graphics.lifeBonus, 50) # (1)
+			lifeBonus = LifeBonus(graphics.area[rdm][0], graphics.area[rdm][1], graphics.lifeBonus, 50) # (1)
 		else:
- 			self.speedBonus = SpeedBonus(graphics.area[rdm][0], graphics.area[rdm][1], graphics.speedBonus, 10) #(2)
+			self.speedBonus = SpeedBonus(graphics.area[rdm][0], graphics.area[rdm][1], graphics.speedBonus, 10) #(2)
 
- 			#(1)spawn du bonus de vie
- 			#(2)spawn du bonus de vitesse
-
-		
+			#(1)spawn du bonus de vie
+			#(2)spawn du bonus de vitesse

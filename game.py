@@ -31,17 +31,17 @@ class Game():
 		pygame.display.set_caption(self.title)
 
 	def initPlayer(self, x1, y1, x2, y2): # création des 2 joueurs
-		self.player1 = Player(x1, y1, True, pygame.K_w, pygame.K_a, pygame.K_d, 
+		self.player1 = Player(x1, y1, True, pygame.K_w, pygame.K_a, pygame.K_d,
 			pygame.K_f, graphics.player1, graphics.player1left, graphics.player1fire,
 			graphics.player1fireleft, graphics.jump, graphics.fire)
 
-		self.player2 = Player(x2, y2, False, pygame.K_UP, pygame.K_LEFT, pygame.K_RIGHT, 
+		self.player2 = Player(x2, y2, False, pygame.K_UP, pygame.K_LEFT, pygame.K_RIGHT,
 			pygame.K_KP0, graphics.player2, graphics.player2left, graphics.player2fire,
 			graphics.player2fireleft, graphics.jump, graphics.fire)
 
 		self.player1.setEnemy(self.player2) # gère l'interraction entre les 2 joueurs
 		self.player2.setEnemy(self.player1)
- 
+
 	def initLevel(self):
 		self.spawner = ItemSpawner(10) # on crée l'objet gérant l'apparition des bonus
 
@@ -77,7 +77,7 @@ class Game():
 	def loop(self, ups): # boucle du jeu
 
 		clock = pygame.time.Clock() # horloge qui peut réguler le nbr de tours de boucle / s
-		
+
 		self.initPlayer(160, 128, self.width - 192, 128) # appelle la méthode pour créer les joueurs
 		self.initLevel() # idem pour le niveau
 
@@ -111,7 +111,7 @@ class Game():
 
 		Bullet.move() # idem
 		self.spawner.update(self.seconds, self.player1, self.player2) # idem
-		
+
 		self.getScores() # appel de la méthode gérant le score
 
 	def render(self): # affiche toutes les images du jeu

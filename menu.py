@@ -2,7 +2,7 @@ import pygame, graphics
 from pygame.locals import *
 
 class Menu(object):
-	
+
 	def __init__(self, game):
 		self.game = game # récupère l'objet game : utilisé pour quitter le programme
 
@@ -30,43 +30,43 @@ class Menu(object):
 
 	def loop(self):
 		 while self.running:
-		 	self.update()
-		 	self.render()
+			self.update()
+			self.render()
 
 		 self.exit() # appelé auto dès que la boucle s'arrête
 
-	def update(self): 
+	def update(self):
 		for event in pygame.event.get():
-		 	if event.type == pygame.QUIT: # si on appuie sur la croix
-		 		self.out = 2 # indique qu'on veut quitter le programme 
-		 		self.stop()  # arrêt de la boucle
-		 		
+			if event.type == pygame.QUIT: # si on appuie sur la croix
+				self.out = 2 # indique qu'on veut quitter le programme
+				self.stop()  # arrêt de la boucle
 
-		 	elif event.type == pygame.KEYDOWN:
-		 		if event.key == pygame.K_UP and self.index != 1:
-		 			graphics.select.play()
-		 			self.choice -= 1
-		 			if self.choice < 0: self.choice = 2
 
-		 		if event.key == pygame.K_DOWN and self.index != 1:
-		 			graphics.select.play()
-		 			self.choice += 1
-		 			if self.choice > 2: self.choice = 0
+			elif event.type == pygame.KEYDOWN:
+				if event.key == pygame.K_UP and self.index != 1:
+					graphics.select.play()
+					self.choice -= 1
+					if self.choice < 0: self.choice = 2
 
-		 		if event.key == pygame.K_ESCAPE and self.index == 1: # si on se situe dans la page help
-		 			self.index = self.baseIndex # on retourne à l'index de base
+				if event.key == pygame.K_DOWN and self.index != 1:
+					graphics.select.play()
+					self.choice += 1
+					if self.choice > 2: self.choice = 0
 
-		 		if event.key == pygame.K_RETURN and self.index == self.baseIndex: # si on est dans l'index de base
-		 			if self.choice == 0: # si "start"
-		 				self.out = 1 #indique qu'on veut lancer le jeu
-		 				self.stop() # quitte la boucle
+				if event.key == pygame.K_ESCAPE and self.index == 1: # si on se situe dans la page help
+					self.index = self.baseIndex # on retourne à l'index de base
 
-		 			elif self.choice == 1: #  si "help"
-		 				self.index = 1 # on va dans l'index 1 : page d'aide
+				if event.key == pygame.K_RETURN and self.index == self.baseIndex: # si on est dans l'index de base
+					if self.choice == 0: # si "start"
+						self.out = 1 #indique qu'on veut lancer le jeu
+						self.stop() # quitte la boucle
 
-		 			elif self.choice == 2: # si "quit"
-		 				self.out = 2 # ... on quitte
-		 				self.stop()
+					elif self.choice == 1: #  si "help"
+						self.index = 1 # on va dans l'index 1 : page d'aide
+
+					elif self.choice == 2: # si "quit"
+						self.out = 2 # ... on quitte
+						self.stop()
 
 	def render(self):
 		self.game.screen.blit(graphics.menuBackground[self.index], (0, 0)) # (1)
@@ -77,5 +77,3 @@ class Menu(object):
 			self.game.screen.blit(graphics.cursor, (448, self.cursorCoords[self.choice]))
 
 		pygame.display.update() # on raffraichit l'écran
-
-

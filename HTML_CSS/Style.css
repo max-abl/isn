@@ -1,11 +1,9 @@
-
-
 body{
 	margin:0px;
 	padding:0px;
 	background-color: #014B70;
 	background:url(images/binding_dark.png);
-	}
+}
 
 
 #blockMenu{
@@ -14,34 +12,34 @@ body{
 	box-shadow:5px 5px 10px black;
 	background-color: rgba(100, 100, 100, 0.0);
 	background:url(images/16x16menu.png)
-	}
-	
-	
+}
+
+
 nav{
-    display: inline-block;
-    text-align: center;
-    width: 99%;
-	}
+	display: inline-block;
+	text-align: center;
+	width: 99%;
+}
 
-  
+
 nav ul{
-  margin: auto;
-  }
+	margin: auto;
+}
 
-  
+
 nav li{
-	padding:0; 
+	padding:0;
 	text-align:center;
 	min-width:175px;
 	list-style-type:none;
 	display:inline-block;
-	}	
-	
+}
+
 
 nav a{
 	color:#FFF;
 	text-decoration:none;
-	font-family: "Gill Sans MT"; 
+	font-family: "Gill Sans MT";
 	font-weight:bold;
 	font-size:24px;
 	font-weight:normal;
@@ -51,11 +49,11 @@ nav a{
 	text-transform:uppercase;
 	min-width:175px;
 	margin: auto;
-	}
+}
 
 nav a:hover{
 	text-decoration:underline;
-	}
+}
 
 
 #baniere{
@@ -64,7 +62,7 @@ nav a:hover{
 	margin:auto;
 	padding-left:10px;
 	padding-right: 10px;
-	}
+}
 
 #mainContent{
 	width:600px;
@@ -74,7 +72,7 @@ nav a:hover{
 	padding-left:10px;
 	padding-right: 10px;
 	color:white;
-	}
+}
 
 #buttonDL{
 	width:200px;
@@ -88,21 +86,21 @@ nav a:hover{
 }
 
 #buttonDL a{
-	 color: #309C00; 
- 	text-decoration: none; 
-	font-weight:bold; 
+	color: #309C00;
+	text-decoration: none;
+	font-weight:bold;
 }
 
 #buttonDL a:hover{
- 	text-decoration: underline; 
+	text-decoration: underline;
 }
 
 
 video{
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	left: 0px;
 }
 
 footer{
@@ -114,17 +112,17 @@ footer{
 	font-family:"calibri";
 	text-align:center;
 	color: #FFF;
-	}
+}
 
 p{
 	text-align: left;
 	font-family:"Gill Sans MT";
 	font-size: 20px;
-	}
+}
 
 h4{
 	text-align: center;
 	font-family: "Calibri", sans-serif;
 	font-size: 10px;
 	padding-top: 20px;
-	}
+}

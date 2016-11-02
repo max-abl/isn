@@ -25,7 +25,7 @@ def process(player, player2, list1, list2, game): # fonction gérant les évène
 				player.image = player.imgL
 				player.isRight = False
 			if event.key == player.up:#idem
-				if player.yspeed == 0:				
+				if player.yspeed == 0:
 					player.jump.play() # on joue un son
 					player.yspeed = -player.speedY
 			if event.key == player.gun: # si on veut tirer
@@ -36,7 +36,6 @@ def process(player, player2, list1, list2, game): # fonction gérant les évène
 				else: # autre direction
 					player.image = player.imgFL
 					b = Bullet(player.rect.x - 16, player.rect.y + int(player.rect.height/2) - 8, -18, bullet1left)
-
 
 			#PLAYER2----------------------
 
@@ -49,7 +48,7 @@ def process(player, player2, list1, list2, game): # fonction gérant les évène
 				player2.image = player2.imgL
 				player2.isRight = False
 			if event.key == player2.up:
-				if player2.yspeed == 0:				
+				if player2.yspeed == 0:
 					player2.jump.play()
 					player2.yspeed = -player2.speedY
 			if event.key == player2.gun or event.key == pygame.K_o:
@@ -60,7 +59,7 @@ def process(player, player2, list1, list2, game): # fonction gérant les évène
 				else:
 					player2.image = player2.imgFL
 					b = Bullet(player2.rect.x - 16, player2.rect.y + int(player2.rect.height/2) - 4, -18, bullet1left)
-					
+
 		elif event.type == pygame.KEYUP: # si on relève une touche
 
 			#PLAYER1-------------------------
@@ -95,7 +94,7 @@ def process(player, player2, list1, list2, game): # fonction gérant les évène
 
 def collision(player1, player2, levl): # fonction gérant les collisions entre balles/blocs et balles/joueur
 	for b in Bullet.bullets: # pour chaque balle existante dans le jeu
-		if pygame.sprite.spritecollide(b, levl.blockList, False): # on teste si la balle touche un bloc 
+		if pygame.sprite.spritecollide(b, levl.blockList, False): # on teste si la balle touche un bloc
 			b.destroy() # dans ce cas on détruit la balle
 
 		elif pygame.sprite.spritecollide(b, player1, False): #sinon si c'est avec un joueur
@@ -105,13 +104,12 @@ def collision(player1, player2, levl): # fonction gérant les collisions entre b
 		elif pygame.sprite.spritecollide(b, player2, False):
 			b.destroy()
 			player2[0].hit(randint(5, 10))
-	
+
 	for item in Item.itemList: # collision avec les bonus
-		if pygame.sprite.spritecollide(item, player1, False): # idem 
+		if pygame.sprite.spritecollide(item, player1, False): # idem
 			item.setBonus(player1[0]) #met le bonus
 			item.destroy() # détruit l'item
 
 		elif pygame.sprite.spritecollide(item, player2, False):
 			item.setBonus(player2[0])
 			item.destroy()
-			

@@ -13,7 +13,7 @@ area = ( # différents points d'apparition des bonus
 	(624, 96),
 	(624, 480),
 	(624, 608)
-	)
+)
 
 menuBackground = [] # liste contenant toutes les images de fond du menu
 
@@ -39,7 +39,7 @@ lvl1 = "res/levels/lvl1.txt" #  chargement fichier .txt représentant le niveau
 
 #personnage
 
-player1 = pygame.transform.scale(tileset.subsurface(0, 8, 8, 8), scale) #chargement de l'image du joueur en découpant une partie de l'image principale 
+player1 = pygame.transform.scale(tileset.subsurface(0, 8, 8, 8), scale) #chargement de l'image du joueur en découpant une partie de l'image principale
 #tout en la grossisant x4
 player1left = pygame.transform.flip(player1, True, False) #On renverse horizontalement l'image précédente pour quand le joueur est orienté vers la gauche
 
